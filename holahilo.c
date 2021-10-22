@@ -6,10 +6,12 @@
 int saldo;
 
 void *printHola(void *arg){
-    printf("Hola desde un hilo\n");
-    int saldolocal = saldo;
+    int saldolocal;
+    pthread_mutex_lock(&lockSaldo);
+    saldolocal = saldo;
     saldolocal += 100;
     saldo = saldolocal;
+    pthread_mutex_unlock(&lockSaldo);
     pthread_exit(NULL);
 }
 
